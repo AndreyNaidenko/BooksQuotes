@@ -1,11 +1,13 @@
 import './App.css';
 import 'antd/dist/antd.css';
-import Search from './Search';
+import SearchBook from './SearchBook';
+import AddBook from './AddBook';
 
 function App() {
   return (
     <>
-    <Search/>
+      <SearchBook />
+      <AddBook />
     </>
   );
 }
