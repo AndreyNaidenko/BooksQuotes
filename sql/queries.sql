@@ -1,0 +1,18 @@
+CREATE DATABASE bqdb;
+
+CREATE TABLE Author(
+    id SERIAL PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Book(
+    id SERIAL PRIMARY KEY,
+    author_id INTEGER REFERENCES Author(id),
+    name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Quote(
+    id SERIAL PRIMARY KEY,
+    book_id INTEGER REFERENCES Book(id),
+    text VARCHAR(1000)
+);

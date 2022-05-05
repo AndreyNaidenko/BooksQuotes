@@ -1,27 +1,41 @@
-import { Button, Col, Input, Modal, Row } from 'antd';
-import { PlusCircleOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Modal } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import { useState } from 'react';
+import { Book } from './interfaces';
 
 const AddBook = () => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [form] = Form.useForm();
 
     const showModal = () => {
         setIsModalVisible(true);
     };
 
-    const handleOk = () => {
+    const handleSubmit = (newBook: Book) => {
+        fetch("http://127.0.0.1:8000/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newBook)
+        }).then(responce => responce.json())
+            .then(result => {
+                console.log(result);
+            });
+
         setIsModalVisible(false);
     };
 
     const handleCancel = () => {
         setIsModalVisible(false);
+        form.resetFields();
     };
 
     return (
         <>
             <Button type="primary" size='large'
-                icon={<PlusCircleOutlined style={{ fontSize: '150%' }} />}
+                icon={<PlusOutlined style={{ fontSize: '150%' }} />}
                 style={{
                     width: '50px', height: '50px', bottom: '50px',
                     position: 'absolute', right: '100px'
@@ -29,27 +43,22 @@ const AddBook = () => {
                 onClick={showModal}
             />
 
-            <Modal title="Добавление книги" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}
-                footer={[
-                    <Button key="back" onClick={handleCancel}>
-                        Отмена
-                    </Button>,
-                    <Button key="submit" type="primary" onClick={handleOk}>
-                        Добавить
-                    </Button>
-                ]}
+            <Modal
+                title="Добавление книги"
+                visible={isModalVisible}
+                onOk={form.submit}
+                onCancel={handleCancel}
+                okText="Добавить"
+                cancelText="Отмена"
             >
-                <Row>
-                    <Col xl={24}>
+                <Form form={form} onFinish={handleSubmit}>
+                    <Form.Item name="author">
                         <Input placeholder="Автор" />
-                    </Col>
-                </Row>
-                <br></br>
-                <Row>
-                    <Col xl={24}>
+                    </Form.Item>
+                    <Form.Item name="book">
                         <Input placeholder="Название книги" />
-                    </Col>
-                </Row>
+                    </Form.Item>
+                </Form>
             </Modal>
         </>
     )
