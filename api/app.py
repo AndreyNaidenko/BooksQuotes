@@ -14,11 +14,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class Book(BaseModel):
+class NewBook(BaseModel):
     author: str
-    book: str
+    bookName: str
 
 @app.post("/")
-async def add_book(book: Book):
-    print(book)
+async def add_book(new_book: NewBook):
+    print(new_book)
     return '200'

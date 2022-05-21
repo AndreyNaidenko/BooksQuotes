@@ -1,7 +1,7 @@
 import { Button, Form, Input, Modal } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useState } from 'react';
-import { Book } from './interfaces';
+import { NewBook } from './interfaces';
 
 const AddBook = () => {
 
@@ -12,7 +12,7 @@ const AddBook = () => {
         setIsModalVisible(true);
     };
 
-    const handleSubmit = (newBook: Book) => {
+    const handleSubmit = (newBook: NewBook) => {
         fetch("http://127.0.0.1:8000/", {
             method: "POST",
             headers: {
@@ -55,7 +55,7 @@ const AddBook = () => {
                     <Form.Item name="author">
                         <Input placeholder="Автор" />
                     </Form.Item>
-                    <Form.Item name="book">
+                    <Form.Item name="bookName">
                         <Input placeholder="Название книги" />
                     </Form.Item>
                 </Form>

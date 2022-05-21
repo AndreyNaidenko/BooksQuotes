@@ -8,11 +8,11 @@ CREATE TABLE Author(
 CREATE TABLE Book(
     id SERIAL PRIMARY KEY,
     author_id INTEGER REFERENCES Author(id),
-    name VARCHAR(100) NOT NULL
+    title VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Quote(
     id SERIAL PRIMARY KEY,
     book_id INTEGER REFERENCES Book(id),
-    text VARCHAR(1000)
+    content VARCHAR(1000)
 );
