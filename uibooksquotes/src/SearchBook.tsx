@@ -7,7 +7,7 @@ const Search = () => {
             <Row justify='center'>
                 <Col xl={12}>
                     <Input
-                        size="large" placeholder="Введите название книги или имя автора" prefix={<SearchOutlined />}/>
+                        size="large" placeholder="" prefix={<SearchOutlined />}/>
                 </Col>
             </Row>
         </>

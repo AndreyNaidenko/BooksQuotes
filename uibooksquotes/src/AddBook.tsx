@@ -1,7 +1,7 @@
 import { Button, Form, Input, Modal } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useState } from 'react';
-import { NewBook } from './interfaces';
+import { Author, Book } from './interfaces';
 
 const AddBook = () => {
 
@@ -12,13 +12,25 @@ const AddBook = () => {
         setIsModalVisible(true);
     };
 
-    const handleSubmit = (newBook: NewBook) => {
+    const getAuthors = (authors: Author | Author[]) => {
+        fetch("http://127.0.0.1:8000/", {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+            },
+        }).then(responce => responce.json())
+            .then(result => {
+                console.log(result);
+            });
+    };
+
+    const addBook = (book: Book) => {
         fetch("http://127.0.0.1:8000/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(newBook)
+            body: JSON.stringify(book)
         }).then(responce => responce.json())
             .then(result => {
                 console.log(result);
@@ -51,7 +63,7 @@ const AddBook = () => {
                 okText="Добавить"
                 cancelText="Отмена"
             >
-                <Form form={form} onFinish={handleSubmit}>
+                <Form form={form} onFinish={addBook}>
                     <Form.Item name="author">
                         <Input placeholder="Автор" />
                     </Form.Item>

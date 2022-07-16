@@ -1,6 +1,9 @@
-interface NewBook {
-    author: string,
-    bookName: string
+interface Author {
+    fullName: string
 }
 
-export type { NewBook };
+interface Book {
+    title: string
+}
+
+export type { Author, Book };
